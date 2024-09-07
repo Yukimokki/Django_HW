@@ -1,0 +1,1 @@
+[{"model": "catalog.category", "pk": 1, "fields": {"name": "hosting", "description": "услуга по хранению сайта"}}, {"model": "catalog.category", "pk": 2, "fields": {"name": "VPN", "description": "Безопасное соединение"}}]
