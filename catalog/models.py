@@ -16,20 +16,20 @@ class Category(models.Model):
         return self.name
 
     class Meta:
-        verbose_name = "Порода"
-        verbose_name_plural = "Породы"
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
         ordering = ["name"]
 
 
 class Product(models.Model):
     name = models.CharField(
         max_length=100,
-        verbose_name="название породы",
-        help_text='Write the dog"s breed',
+        verbose_name="название продукта",
+        help_text="Product's name",
     )
     description = models.TextField(
-        verbose_name="описание породы",
-        help_text="describe the breed",
+        verbose_name="описание продукта",
+        help_text="describe the product",
         blank=True,
         null=True,
     )
@@ -66,12 +66,12 @@ class Product(models.Model):
         verbose_name="Дата последнего изменения",
         help_text="date when changed"
     )
-    manufactured_at = models.DateField(
-        blank=True,
-        null=True,
-        verbose_name="Дата производства",
-        help_text="manufacturing date"
-    )
+    # manufactured_at = models.DateField(
+    #     blank=True,
+    #     null=True,
+    #     verbose_name="Дата производства",
+    #     help_text="manufacturing date"
+    # )
     def __str__(self):
         return self.name
 
