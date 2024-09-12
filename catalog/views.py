@@ -1,8 +1,11 @@
 from django.shortcuts import render
+from catalog.models import Product, Category
 
 
 def home(request):
-    return render(request, 'catalog/home.html')
+    products = Product.objects.all()
+    context = {"products": products}
+    return render(request, 'catalog/products_list.html', context)
 
 
 def contact(request):
@@ -12,3 +15,7 @@ def contact(request):
         message = request.POST.get('message')
         print(f'You have new message from {name}({email}): {message}')
     return render(request, 'catalog/contact.html')
+
+
+def product_card(request, pk):
+    return render(request, 'catalog/home.html')
