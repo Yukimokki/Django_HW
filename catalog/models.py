@@ -1,10 +1,11 @@
 from django.db import models
 
+
 class Category(models.Model):
     name = models.CharField(
         max_length=100,
         verbose_name="название категории",
-        help_text='Category name',
+        help_text="Category name",
     )
     description = models.TextField(
         verbose_name="описание категории",
@@ -12,6 +13,7 @@ class Category(models.Model):
         blank=True,
         null=True,
     )
+
     def __str__(self):
         return self.name
 
@@ -34,8 +36,8 @@ class Product(models.Model):
         null=True,
     )
     preview = models.ImageField(
-        upload_to = 'products/media',
-        blank = True,
+        upload_to="products/media",
+        blank=True,
         null=True,
         verbose_name="превью продукта",
         help_text="Upload photo",
@@ -46,7 +48,7 @@ class Product(models.Model):
         on_delete=models.SET_NULL,
         null=True,
         verbose_name="категория продукта",
-        help_text='select product category',
+        help_text="select product category",
         related_name="products",
     )
     price = models.DecimalField(
@@ -57,15 +59,16 @@ class Product(models.Model):
         blank=True,
         null=True,
         verbose_name="Дата добавления",
-        help_text="date when added"
+        help_text="date when added",
     )
 
     updated_at = models.DateField(
         blank=True,
         null=True,
         verbose_name="Дата последнего изменения",
-        help_text="date when changed"
+        help_text="date when changed",
     )
+
     # manufactured_at = models.DateField(
     #     blank=True,
     #     null=True,

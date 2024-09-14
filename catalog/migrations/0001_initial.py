@@ -8,39 +8,119 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name="Category",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Category name', max_length=100, verbose_name='название категории')),
-                ('description', models.TextField(blank=True, help_text='describe the category', null=True, verbose_name='описание категории')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text="Category name",
+                        max_length=100,
+                        verbose_name="название категории",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        blank=True,
+                        help_text="describe the category",
+                        null=True,
+                        verbose_name="описание категории",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Порода',
-                'verbose_name_plural': 'Породы',
-                'ordering': ['name'],
+                "verbose_name": "Порода",
+                "verbose_name_plural": "Породы",
+                "ordering": ["name"],
             },
         ),
         migrations.CreateModel(
-            name='Product',
+            name="Product",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(help_text='Write the dog"s breed', max_length=100, verbose_name='название породы')),
-                ('description', models.TextField(blank=True, help_text='describe the breed', null=True, verbose_name='описание породы')),
-                ('preview', models.ImageField(blank=True, help_text='Upload photo', null=True, upload_to='products/media', verbose_name='превью продукта')),
-                ('price', models.DecimalField(decimal_places=2, max_digits=10)),
-                ('created_at', models.DateField(blank=True, help_text='date when added', null=True, verbose_name='Дата добавления')),
-                ('updated_at', models.DateField(blank=True, help_text='date when changed', null=True, verbose_name='Дата последнего изменения')),
-                ('category', models.ForeignKey(help_text='select product category', null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='products', to='catalog.category', verbose_name='категория продукта')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "name",
+                    models.CharField(
+                        help_text='Write the dog"s breed',
+                        max_length=100,
+                        verbose_name="название породы",
+                    ),
+                ),
+                (
+                    "description",
+                    models.TextField(
+                        blank=True,
+                        help_text="describe the breed",
+                        null=True,
+                        verbose_name="описание породы",
+                    ),
+                ),
+                (
+                    "preview",
+                    models.ImageField(
+                        blank=True,
+                        help_text="Upload photo",
+                        null=True,
+                        upload_to="products/media",
+                        verbose_name="превью продукта",
+                    ),
+                ),
+                ("price", models.DecimalField(decimal_places=2, max_digits=10)),
+                (
+                    "created_at",
+                    models.DateField(
+                        blank=True,
+                        help_text="date when added",
+                        null=True,
+                        verbose_name="Дата добавления",
+                    ),
+                ),
+                (
+                    "updated_at",
+                    models.DateField(
+                        blank=True,
+                        help_text="date when changed",
+                        null=True,
+                        verbose_name="Дата последнего изменения",
+                    ),
+                ),
+                (
+                    "category",
+                    models.ForeignKey(
+                        help_text="select product category",
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="products",
+                        to="catalog.category",
+                        verbose_name="категория продукта",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Продукт',
-                'verbose_name_plural': 'Продукты',
-                'ordering': ['name'],
+                "verbose_name": "Продукт",
+                "verbose_name_plural": "Продукты",
+                "ordering": ["name"],
             },
         ),
     ]
