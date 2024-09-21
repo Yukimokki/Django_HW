@@ -173,8 +173,8 @@
         <h1 class="fw-light">My travel blog</h1>
         <p class="lead text-body-secondary">digital nomad life around the globe</p>
         <p>
-          <a class="btn btn-primary" href="#" role="button">Create new</a>
-          <a href="#" class="btn btn-secondary my-2">Secondary action</a>
+          <a class="btn btn-primary" href="{% url 'blog:blog_create' %}" role="button">Create new</a>
+          <a href="{% url 'blog:blog_subscribe' %}" class="btn btn-secondary my-2">Subscribe</a>
         </p>
       </div>
     </div>

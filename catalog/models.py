@@ -69,6 +69,12 @@ class Product(models.Model):
         help_text="date when changed",
     )
 
+    views_counter = models.PositiveIntegerField(
+        verbose_name="visits counter",
+        help_text="Number of views",
+        default=0
+    )
+
     # manufactured_at = models.DateField(
     #     blank=True,
     #     null=True,
