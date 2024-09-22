@@ -3,7 +3,7 @@ from django.db import models
 
 class Blog_Entry(models.Model):
     title = models.CharField(max_length=100, verbose_name="Blog entry title", help_text="title of the post")
-    slug = models.CharField(max_length=100, verbose_name="readable url", help_text="has title in it")
+    slug = models.CharField(max_length=100, verbose_name="readable url", help_text="has title in it", blank=True, null=True)
     content = models.TextField(
         verbose_name="blog post text",
         help_text="write your text here",
