@@ -93,7 +93,7 @@ class Version(models.Model):
     product = models.ForeignKey(
         Product,
         related_name="versions",
-        on_delete=models.SET_NULL,
+        on_delete=models.CASCADE,
         null=True,
         blank=True,
         verbose_name="Version",)
@@ -111,5 +111,5 @@ class Version(models.Model):
     )
 
     is_current = models.BooleanField(
-        default=True, verbose_name="current_version",
+        default=False, verbose_name="current_version",
     )

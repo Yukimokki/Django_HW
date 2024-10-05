@@ -1,5 +1,4 @@
 from django.forms import ModelForm, BooleanField
-from django.utils import timezone
 from catalog.models import Category, Product, Version
 from django.core.exceptions import ValidationError
 
@@ -18,7 +17,7 @@ class ProductForm(StyleFormMixin, ModelForm):
         model = Product
         exclude = ("views_counter",)
 
-    def clean_version_text(self):
+    def clean_name(self):
         list_forbidden_words = [
             "казино",
             "криптовалюта",
@@ -30,17 +29,32 @@ class ProductForm(StyleFormMixin, ModelForm):
             "полиция",
             "радар",
         ]
-        product_name = self.cleaned_data["name"].split()
+        product_name = self.cleaned_data["name"]
         for item in list_forbidden_words:
             if item in product_name:
                 raise ValidationError("Invalid name")
-            return product_name
+        return product_name
 
-        product_text = self.cleaned_data["description"].split()
+
+    def clean_description(self):
+        list_forbidden_words = [
+            "казино",
+            "криптовалюта",
+            "крипта",
+            "биржа",
+            "дешево",
+            "бесплатно",
+            "обман",
+            "полиция",
+            "радар",
+        ]
+        product_description = self.cleaned_data["description"]
         for item in list_forbidden_words:
-            if item in product_text:
-                raise ValidationError("Invalid description")
-            return product_name
+            if item in product_description:
+                raise ValidationError("Invalid description. Are you a scammer?")
+        return product_description
+
+
 
 class VersionForm(StyleFormMixin, ModelForm):
     class Meta:

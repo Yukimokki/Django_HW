@@ -5,10 +5,14 @@
         <div class="col">
             <form class="row" method="post" enctype="multipart/form-data">
                   <div class="card">
+                    {% if object %}
+                    <p class="card-text"> Editing Product </p>
+                    {% else %}
+                    <p class="card-text"> Creating Product </p>
+                    {% endif %}
                       <div class="card-body">
                         {% csrf_token%}
-                          {{ form.as_p}}
-
+                        {{ form.as_p}}
                       </div>
                       <button type="submit" class="btn btn-primary">
                           {% if object %}
@@ -18,6 +22,25 @@
                           {% endif %}
                       </button>
                   </div>
+                </div>
+            <div class = col-6>
+            <div class="card">
+                    {% if object %}
+                    <p class="card-text"> Editing Product Version </p>
+                    {% else %}
+                    <p class="card-text"> Creating Product Version </p>
+                    {% endif %}
+                <div class="card-body">
+                    {{ formset.management_form }}
+                    {% for form in formset.forms %}
+                        {{ form.as_p }}
+                        {% if not forloop.last %}
+                        <hr>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
             </form>
         </div>
     </div>
