@@ -1,4 +1,6 @@
 from django.shortcuts import render, get_object_or_404
+
+from catalog.forms import ProductForm
 from catalog.models import Product, Category
 from django.urls import reverse_lazy, reverse
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
@@ -19,36 +21,39 @@ class ProductDetailView(DetailView):
 
 class ProductCreateView(CreateView):
     model = Product
-    fields = ("id", "name", "price", "category", "views_counter")
-    success_url = reverse_lazy('product:products_list')
+    form_class = ProductForm
+    success_url = reverse_lazy('catalog:product_list')
+
+ #   def form_valid(self,form):
+
 
 
 class ProductUpdateView(UpdateView):
     model = Product
     fields = ("id", "name", "price", "category",)
-    success_url = reverse_lazy('product:products_list')
+    success_url = reverse_lazy('catalog:product_list')
 
     def get_success_url(self):
-        return reverse('product:product_detail', args=[self.kwargs.get('pk')])
+        return reverse('catalog:product_detail', args=[self.kwargs.get('pk')])
 
 
 class ProductDeleteView(DeleteView):
     model = Product
-    success_url = reverse_lazy('product:products_list')
+    success_url = reverse_lazy('catalog:product_list')
 
 def home(request):
     products = Product.objects.all()
     context = {"products": products}
     return render(request, "catalog/home.html", context)
-#
-#
-# def contact(request):
-#     if request.method == "POST":
-#         name = request.POST.get("name")
-#         email = request.POST.get("phone")
-#         message = request.POST.get("message")
-#         print(f"You have new message from {name}({email}): {message}")
-#     return render(request, "catalog/contact.html")
+
+
+def contact(request):
+    if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("phone")
+        message = request.POST.get("message")
+        print(f"You have new message from {name}({email}): {message}")
+    return render(request, "catalog/contact.html")
 #
 #
 # def catalog(request):

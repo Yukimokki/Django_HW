@@ -37,8 +37,8 @@ class Product(models.Model):
     )
     preview = models.ImageField(
         upload_to="products/media",
-        blank=True,
-        null=True,
+        #blank=True,
+        #null=True,
         verbose_name="превью продукта",
         help_text="Upload photo",
     )
@@ -88,3 +88,28 @@ class Product(models.Model):
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["name"]
+
+class Version(models.Model):
+    product = models.ForeignKey(
+        Product,
+        related_name="versions",
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Version",)
+
+    version_number = models.CharField(
+        max_length=50,
+        verbose_name="Version number",
+        help_text="product version number",
+    )
+
+    version_name = models.CharField(
+        max_length=50,
+        verbose_name="Version name",
+        help_text="product version name",
+    )
+
+    is_current = models.BooleanField(
+        default=True, verbose_name="current_version",
+    )
