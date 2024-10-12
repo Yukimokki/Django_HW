@@ -1,16 +1,19 @@
 from django.forms import ModelForm, BooleanField
+from django.views import View
 from catalog.models import Category, Product, Version
 from django.core.exceptions import ValidationError
+from django.contrib.auth.mixins import LoginRequiredMixin
 
+
+class MyView(LoginRequiredMixin, View):
+    login_url = "/login/"
+    redirect_field_name = "redirect_to"
 
 class StyleFormMixin:
     def __init__(self,*args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():
-            if isinstance(field, BooleanField):
-                field.widget.attrs['class'] = "form-check-input"
-            else:
-                field.widget.attrs['class'] = "form-control"
+            field.widget.attrs['class'] = "form-control"
 
 class ProductForm(StyleFormMixin, ModelForm):
     class Meta:

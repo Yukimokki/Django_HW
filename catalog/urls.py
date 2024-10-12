@@ -1,5 +1,8 @@
 from django.contrib import admin
+from django.contrib.auth.views import LoginView
 from django.urls import path, include
+
+from users.views import UserLoginView
 from catalog.views import ProductListView, ProductDetailView, home, contact, ProductCreateView, ProductUpdateView, ProductDeleteView
 from catalog.apps import CatalogConfig
 
@@ -13,6 +16,8 @@ urlpatterns =[
     path('catalog/product/create', ProductCreateView.as_view(), name='product_create'),
     path('catalog/product/<int:pk>/update', ProductUpdateView.as_view(), name='product_update'),
     path('catalog/product/<int:pk>/delete', ProductDeleteView.as_view(), name='product_delete'),
+    #path('accounts/login/', UserLoginView.as_view(template_name="users/login.html"), name="login"),
+    path("accounts/login/", LoginView.as_view(template_name="users/login.html"), name="login"),
 ]
 
 # urlpatterns = [

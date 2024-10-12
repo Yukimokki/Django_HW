@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import User, NULLABLE
+
 
 class Category(models.Model):
     name = models.CharField(
@@ -74,6 +76,13 @@ class Product(models.Model):
         help_text="Number of views",
         default=0
     )
+
+    owner = models.ForeignKey(
+        User,
+        verbose_name="Owner",
+        help_text="print Products's owner name",
+        on_delete=models.SET_NULL,
+        **NULLABLE)
 
     # manufactured_at = models.DateField(
     #     blank=True,
