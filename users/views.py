@@ -79,8 +79,7 @@ def reset_password(request):
 
             send_mail(
                 subject="New Skystore password",
-                message=f"your new password is {new_password},\n"
-                        f"use this link to login: http://127.0.0.1:8000/users/login/",
+                message=f"your new password is {new_password}\n",
                 from_email=EMAIL_HOST_USER,
                 recipient_list=[user.email],
                 fail_silently=False,

@@ -1,8 +1,9 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.forms import inlineformset_factory
 from django.shortcuts import render, get_object_or_404
 from django.views import View
-from catalog.forms import ProductForm, VersionForm
+from catalog.forms import ProductForm, VersionForm, ProductModeratorForm
 from catalog.models import Product, Category, Version
 from django.urls import reverse_lazy, reverse
 from django.views.generic import (
@@ -13,9 +14,11 @@ from django.views.generic import (
     DeleteView,
 )
 
+
 class MyView(LoginRequiredMixin, View):
     login_url = "users/login/"
     redirect_field_name = "redirect_to"
+
 
 class ProductListView(ListView):
     model = Product
@@ -29,8 +32,6 @@ class ProductListView(ListView):
 
 class ProductDetailView(DetailView):
     model = Product
-
-
 
     def get_object(self, queryset=None):
         self.object = super().get_object(queryset)
@@ -61,7 +62,6 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         product.owner = user
         product.save()
         return super().form_valid(form)
-
 
         # context_data = self.get_context_data()
         # formset = context_data["formset"]
@@ -108,6 +108,18 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
                 self.get_context_data(form=form, formset=formset)
             )
 
+    def get_form_class(self):
+        user = self.request.user
+        if user.groups == "admin" or user == self.object.owner:
+            return ProductForm
+        if (
+                user.has_perm("catalog.can_change_category")
+                and user.has_perm("catalog.can_edit_description")
+                and user.has_perm("catalog.can_edit_publication")
+        ):
+            return ProductModeratorForm
+        raise PermissionDenied
+
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     model = Product
@@ -127,7 +139,6 @@ def contact(request):
         message = request.POST.get("message")
         print(f"You have new message from {name}({email}): {message}")
     return render(request, "catalog/contact.html")
-
 
 #
 #

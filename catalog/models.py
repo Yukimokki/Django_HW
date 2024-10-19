@@ -77,6 +77,8 @@ class Product(models.Model):
         default=0
     )
 
+    is_published = models.BooleanField(default=False, verbose_name="published")
+
     owner = models.ForeignKey(
         User,
         verbose_name="Owner",
@@ -97,6 +99,11 @@ class Product(models.Model):
         verbose_name = "Продукт"
         verbose_name_plural = "Продукты"
         ordering = ["name"]
+        permissions = [
+            ("can_change_category", "can change category"),
+            ("can_edit_description", "can edit description"),
+            ("can_edit_publication", "can change publication")
+        ]
 
 class Version(models.Model):
     product = models.ForeignKey(
