@@ -110,7 +110,9 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
 
     def get_form_class(self):
         user = self.request.user
-        if user.groups == "admin" or user == self.object.owner:
+        if user.groups.filter().exists():
+            return ProductForm
+        if user == self.object.owner:
             return ProductForm
         if (
                 user.has_perm("catalog.can_change_category")

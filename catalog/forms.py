@@ -21,7 +21,7 @@ class StyleFormMixin:
 class ProductForm(StyleFormMixin, ModelForm):
     class Meta:
         model = Product
-        exclude = ("views_counter",)
+        exclude = ("views_counter","owner")
 
     def clean_name(self):
         list_forbidden_words = [
