@@ -14,6 +14,8 @@ from django.views.generic import (
     DeleteView,
 )
 
+from catalog.services import get_cached_products
+
 
 class MyView(LoginRequiredMixin, View):
     login_url = "users/login/"
@@ -22,12 +24,17 @@ class MyView(LoginRequiredMixin, View):
 
 class ProductListView(ListView):
     model = Product
+    template_name = "catalog/product_list.html"
+    context_object_name = "product_list"
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         for product in context["product_list"]:
             product.active_version = product.versions.filter(is_current=True).first()
         return context
+
+    def get_queryset(self):
+        return get_cached_products()
 
 
 class ProductDetailView(DetailView):
